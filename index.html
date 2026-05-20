@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AniSearch — AniList Explorer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div>
+    <div class="logo">Ani<span>Search</span></div>
+    <div class="logo-sub">powered by anilist api</div>
+  </div>
+  <div class="header-badge">GraphQL · v2</div>
+</header>
+
+<section class="hero">
+  <h1 class="hero-title">Explore o universo<br><em>anime</em></h1>
+  <p class="hero-desc">Busque qualquer anime, mangá ou personagem via AniList API</p>
+
+  <div class="search-wrapper">
+    <input id="search-input" class="search-input" type="text"
+           placeholder="Digite o nome do anime ou mangá..." autocomplete="off"/>
+    <button id="search-btn" class="search-btn">Buscar</button>
+  </div>
+
+  <div class="filters">
+    <select id="filter-type" class="filter-select">
+      <option value="">Tipo: Todos</option>
+      <option value="ANIME">Anime</option>
+      <option value="MANGA">Mangá</option>
+    </select>
+
+    <select id="filter-status" class="filter-select">
+      <option value="">Status: Todos</option>
+      <option value="RELEASING">Em lançamento</option>
+      <option value="FINISHED">Finalizado</option>
+      <option value="NOT_YET_RELEASED">Não lançado</option>
+      <option value="CANCELLED">Cancelado</option>
+    </select>
+
+    <select id="filter-season" class="filter-select">
+      <option value="">Temporada: Todas</option>
+      <option value="WINTER">Winter ❄</option>
+      <option value="SPRING">Spring 🌸</option>
+      <option value="SUMMER">Summer ☀</option>
+      <option value="FALL">Fall 🍂</option>
+    </select>
+
+    <select id="filter-format" class="filter-select">
+      <option value="">Formato: Todos</option>
+      <option value="TV">TV</option>
+      <option value="MOVIE">Filme</option>
+      <option value="OVA">OVA</option>
+      <option value="ONA">ONA</option>
+      <option value="SPECIAL">Especial</option>
+      <option value="MUSIC">Música</option>
+    </select>
+
+    <select id="filter-sort" class="filter-select">
+      <option value="POPULARITY_DESC">↓ Popularidade</option>
+      <option value="SCORE_DESC">↓ Nota</option>
+      <option value="TRENDING_DESC">↓ Trending</option>
+      <option value="TITLE_ROMAJI">A–Z Título</option>
+      <option value="START_DATE_DESC">↓ Mais novo</option>
+    </select>
+  </div>
+</section>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="results">Resultados</button>
+</div>
+
+<main>
+  <div class="status-bar" id="status-bar" style="display:none">
+    <span id="status-text">— resultados</span>
+    <div class="sort-row">
+      <span>Página <span id="page-info">1</span></span>
+    </div>
+  </div>
+
+  <div id="panel-results"></div>
+  <div id="panel-trending" style="display:none"></div>
+  <div id="panel-seasonal" style="display:none"></div>
+
+  <div class="pagination" id="pagination" style="display:none"></div>
+</main>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close">X FECHAR</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<button id="scroll-top" title="Topo">↑</button>
+
+<script src="javascript.js"></script>
+</body>
+</html>
