@@ -1,8 +1,3 @@
-/* ============================================================
-   AniSearch — javascript.js
-   ============================================================ */
-
-/* ========== STATE ========== */
 const state = {
   query: '',
   type: '', status: '', season: '', format: '',
@@ -14,7 +9,6 @@ const state = {
   hasSearched: false,
 };
 
-/* ========== DOM REFS ========== */
 const searchInput  = document.getElementById('search-input');
 const searchBtn    = document.getElementById('search-btn');
 const filterType   = document.getElementById('filter-type');
@@ -34,7 +28,6 @@ const modalClose   = document.getElementById('modal-close');
 const modalContent = document.getElementById('modal-content');
 const scrollTopBtn = document.getElementById('scroll-top');
 
-/* ========== API ========== */
 const API_URL = 'https://graphql.anilist.co';
 
 async function gql(query, variables = {}) {
@@ -48,7 +41,6 @@ async function gql(query, variables = {}) {
   return data.data;
 }
 
-/* ========== GRAPHQL QUERIES ========== */
 const SEARCH_QUERY = `
   query ($page: Int, $perPage: Int, $search: String, $type: MediaType,
          $status: MediaStatus, $season: MediaSeason, $format: MediaFormat,
@@ -120,7 +112,6 @@ const DETAIL_QUERY = `
     }
   }`;
 
-/* ========== HELPERS ========== */
 function currentSeason() {
   const m = new Date().getMonth() + 1;
   if (m >= 1 && m <= 3) return 'WINTER';
@@ -147,7 +138,6 @@ function skeleton(n) {
     </div>`).join('');
 }
 
-/* ========== RENDER CARD ========== */
 function renderCard(m, delay = 0) {
   const title = m.title.english || m.title.romaji;
   const genre = m.genres?.[0] ?? '';
@@ -170,7 +160,6 @@ function renderCard(m, delay = 0) {
     </div>`;
 }
 
-/* ========== RENDER GRID ========== */
 function renderGrid(mediaList, container) {
   if (!mediaList.length) {
     container.innerHTML = `
@@ -190,7 +179,6 @@ function renderGrid(mediaList, container) {
   });
 }
 
-/* ========== PAGINATION ========== */
 function renderPagination(currentPage, lastPage) {
   if (lastPage <= 1) { pagination.style.display = 'none'; return; }
   pagination.style.display = 'flex';
@@ -223,7 +211,6 @@ function renderPagination(currentPage, lastPage) {
   document.getElementById('next-btn')?.addEventListener('click', () => { state.page++; doSearch(); });
 }
 
-/* ========== SEARCH ========== */
 async function doSearch() {
   switchTab('results');
   panelResults.innerHTML = `<div class="grid">${skeleton(12)}</div>`;
@@ -263,7 +250,6 @@ async function doSearch() {
   }
 }
 
-/* ========== TRENDING ========== */
 async function loadTrending() {
   panelTrending.innerHTML = `
     <div class="section-header">
@@ -293,7 +279,6 @@ async function loadTrending() {
   }
 }
 
-/* ========== SEASONAL ========== */
 async function loadSeasonal() {
   const season      = currentSeason();
   const year        = new Date().getFullYear();
@@ -327,7 +312,6 @@ async function loadSeasonal() {
   }
 }
 
-/* ========== MODAL ========== */
 async function openModal(id) {
   modalContent.innerHTML = `<div style="padding:3rem;text-align:center;color:var(--muted)">Carregando...</div>`;
   modalOverlay.classList.add('open');
@@ -436,7 +420,6 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-/* ========== TABS ========== */
 const tabBtns = document.querySelectorAll('.tab-btn');
 const panels  = { results: panelResults, trending: panelTrending, seasonal: panelSeasonal };
 let trendingLoaded = false;
@@ -459,7 +442,6 @@ tabBtns.forEach(btn => {
   });
 });
 
-/* ========== EVENTS ========== */
 searchBtn.addEventListener('click', () => {
   state.query       = searchInput.value.trim();
   state.page        = 1;
@@ -480,7 +462,6 @@ window.addEventListener('scroll', () => {
 });
 scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-/* ========== INIT — popular on load ========== */
 (async () => {
   panelResults.innerHTML = `
     <div class="section-header">
